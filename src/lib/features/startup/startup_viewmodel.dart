@@ -9,9 +9,10 @@ class StartupViewModel extends BaseViewModel {
   Future<void> runStartupLogic() async {
     try {
       await Future.delayed(const Duration(seconds: 2));
-      await _navigationService.clearStackAndShow('/patient-list-view');
+      await _navigationService.clearStackAndShow('/patient-list');
     } catch (e) {
-      setError('Failed to initialize application. Please restart the app.');
+      setError(
+          'Unable to start application. Please check your internet connection and try again.');
     }
   }
 }

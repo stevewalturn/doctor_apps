@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:gap/gap.dart';
 import 'package:stacked/stacked.dart';
-
+import 'package:gap/gap.dart';
 import 'startup_viewmodel.dart';
 
 class StartupView extends StackedView<StartupViewModel> {
@@ -14,30 +13,42 @@ class StartupView extends StackedView<StartupViewModel> {
     StartupViewModel viewModel,
     Widget? child,
   ) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
+            const Text(
               'DoctorApps',
               style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
             ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text('Loading ...', style: TextStyle(fontSize: 16)),
-                Gap(10),
-                SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: CircularProgressIndicator(
-                    color: Colors.black,
-                    strokeWidth: 6,
-                  ),
-                )
-              ],
-            ),
+            const Gap(20),
+            if (viewModel.modelError != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Text(
+                  viewModel.modelError.toString(),
+                  style: const TextStyle(color: Colors.red),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            if (viewModel.modelError == null) ...[
+              const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('Loading ...', style: TextStyle(fontSize: 16)),
+                  Gap(10),
+                  SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(
+                      color: Colors.black,
+                      strokeWidth: 6,
+                    ),
+                  )
+                ],
+              ),
+            ],
           ],
         ),
       ),
@@ -45,10 +56,7 @@ class StartupView extends StackedView<StartupViewModel> {
   }
 
   @override
-  StartupViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      StartupViewModel();
+  StartupViewModel viewModelBuilder(BuildContext context) => StartupViewModel();
 
   @override
   void onViewModelReady(StartupViewModel viewModel) => SchedulerBinding.instance

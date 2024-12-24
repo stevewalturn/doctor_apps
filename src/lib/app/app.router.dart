@@ -17,11 +17,11 @@ import 'package:stacked_services/stacked_services.dart' as _i7;
 class Routes {
   static const startupView = '/';
 
-  static const patientListView = '/patient-list-view';
+  static const patientListView = '/patient-list';
 
-  static const patientFormView = '/patient-form-view';
+  static const patientFormView = '/patient-form';
 
-  static const patientDetailView = '/patient-detail-view';
+  static const patientDetailView = '/patient-detail';
 
   static const all = <String>{
     startupView,
