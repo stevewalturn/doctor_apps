@@ -5,19 +5,19 @@ import 'package:doctor_apps/ui/common/ui_helpers.dart';
 import 'package:doctor_apps/utils/const/const.dart';
 
 class PatientFormFields extends StatelessWidget {
-  final Function(String) onNameChanged;
-  final Function(String) onAgeChanged;
-  final Function(String) onGenderChanged;
-  final Function(String) onPhoneChanged;
-  final Function(String) onAddressChanged;
-  final Function(String) onMedicalHistoryChanged;
+  final ValueChanged<String> onNameChanged;
+  final ValueChanged<String> onAgeChanged;
+  final ValueChanged<String> onGenderChanged;
+  final ValueChanged<String> onPhoneChanged;
+  final ValueChanged<String> onAddressChanged;  
+  final ValueChanged<String> onMedicalHistoryChanged;
   final Patient? initialValues;
   final bool isLoading;
 
   const PatientFormFields({
     Key? key,
     required this.onNameChanged,
-    required this.onAgeChanged,
+    required this.onAgeChanged, 
     required this.onGenderChanged,
     required this.onPhoneChanged,
     required this.onAddressChanged,
@@ -63,7 +63,7 @@ class PatientFormFields extends StatelessWidget {
             DropdownMenuItem(value: 'Female', child: Text('Female')),
             DropdownMenuItem(value: 'Other', child: Text('Other')),
           ],
-          onChanged: isLoading ? null : onGenderChanged,
+          onChanged: isLoading ? null : (value) => onGenderChanged(value ?? ''),
         ),
         verticalSpaceSmall,
         TextFormField(

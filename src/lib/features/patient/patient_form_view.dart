@@ -38,12 +38,12 @@ class PatientFormView extends StackedView<PatientFormViewModel> {
                 child: Column(
                   children: [
                     PatientFormFields(
-                      onNameChanged: viewModel.setName,
-                      onAgeChanged: viewModel.setAge,
-                      onGenderChanged: viewModel.setGender,
-                      onPhoneChanged: viewModel.setPhone,
-                      onAddressChanged: viewModel.setAddress,
-                      onMedicalHistoryChanged: viewModel.setMedicalHistory,
+                      onNameChanged: (value) => viewModel.setName(value),
+                      onAgeChanged: (value) => viewModel.setAge(value),
+                      onGenderChanged: (value) => viewModel.setGender(value),
+                      onPhoneChanged: (value) => viewModel.setPhone(value),
+                      onAddressChanged: (value) => viewModel.setAddress(value),
+                      onMedicalHistoryChanged: (value) => viewModel.setMedicalHistory(value),
                       initialValues: viewModel.patient,
                       isLoading: viewModel.isBusy,
                     ),
