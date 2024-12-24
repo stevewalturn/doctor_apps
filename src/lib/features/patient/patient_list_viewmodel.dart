@@ -45,12 +45,22 @@ class PatientListViewModel extends BaseViewModel {
     await runBusyFuture(_loadPatients());
   }
 
-  void navigateToAddPatient() {
-    _navigationService.navigateTo('/patient-form');
+  Future<void> navigateToAddPatient() async {
+    try {
+      await _navigationService.navigateTo('/patient-form');
+      await refreshPatients();
+    } catch (e) {
+      setError('Unable to navigate to add patient form. Please try again.');
+    }
   }
 
-  void navigateToPatientDetail(int patientId) {
-    _navigationService.navigateTo('/patient-detail', arguments: patientId);
+  Future<void> navigateToPatientDetail(int patientId) async {
+    try {
+      await _navigationService.navigateTo('/patient-detail',
+          arguments: patientId);
+    } catch (e) {
+      setError('Unable to open patient details. Please try again.');
+    }
   }
 
   Future<void> deletePatient(int patientId) async {
