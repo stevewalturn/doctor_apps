@@ -11,9 +11,9 @@ import 'package:stacked_services/stacked_services.dart';
 @StackedApp(
   routes: [
     MaterialRoute(page: StartupView, initial: true),
-    MaterialRoute(page: PatientListView),
-    MaterialRoute(page: PatientFormView),
-    MaterialRoute(page: PatientDetailView),
+    MaterialRoute(page: PatientListView, path: '/patient-list'),
+    MaterialRoute(page: PatientFormView, path: '/patient-form'),
+    MaterialRoute(page: PatientDetailView, path: '/patient-detail'),
   ],
   dependencies: [
     LazySingleton(classType: BottomSheetService),

@@ -27,5 +27,7 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => BottomSheetService());
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => NavigationService());
-  locator.registerLazySingleton(() => PatientService());
+  final patientService = PatientService();
+  await patientService.init();
+  locator.registerSingleton(patientService);
 }

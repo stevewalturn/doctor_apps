@@ -68,7 +68,8 @@ class PatientListView extends StackedView<PatientListViewModel> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: viewModel.navigateToAddPatient,
+        key: const Key('addPatientButton'),
+        onPressed: () => viewModel.navigateToAddPatient(),
         backgroundColor: kcPrimaryColor,
         child: const Icon(Icons.add),
       ),
