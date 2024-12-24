@@ -1,0 +1,1 @@
+A simple counter app that have button that will counting the number +1 every click of a button
