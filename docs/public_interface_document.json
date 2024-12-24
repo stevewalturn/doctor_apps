@@ -1,7 +1,7 @@
 {
   "package_name": "com.steve_os.doctor_apps",
-  "project_description": "The Flutter application follows the Stacked architecture, featuring routing, dependency injection, and dialog/bottom sheet management. It includes a startup screen, a home screen with a counter, a dialog, and a bottom sheet. The application also integrates with Firebase for analytics tracking and supports localization and multiple flavors (development and production).",
-  "architecture_overview": "The application is structured using the Stacked architecture, which separates the concerns of the UI, view models, and services. It uses Stacked for state management, routing, and dependency injection. The main components include the App, AppView, and various feature-specific views and view models. The application also utilizes services for managing dialogs, bottom sheets, and navigation, as well as observing screen transitions for analytics purposes.",
+  "project_description": "A comprehensive medical patient management Flutter application utilizing the Stacked architecture. The app provides functionality for patient record management, including creating, viewing, editing, and deleting patient profiles. Key features include a startup screen, patient list view, patient detail view, patient form, and basic navigation between screens. The application demonstrates robust state management, dependency injection, and a service-oriented architecture with modular components.",
+  "architecture_overview": "The application is built using the Stacked architecture with a clear separation of concerns. It employs dependency injection via GetIt, reactive state management through ViewModels, and centralized services for data and navigation management. The architecture follows MVVM (Model-View-ViewModel) principles, with each feature having a corresponding view, view model, and potentially a service or repository layer.",
   "files": [
     {
       "name": "lib/app/app.dart",
@@ -15,23 +15,6 @@
         "package:my_app/ui/dialogs/info_alert/info_alert_dialog.dart",
         "package:my_app/features/home/home_view.dart",
         "package:my_app/features/startup/startup_view.dart"
-      ]
-    },
-    {
-      "name": "lib/l10n/localizations_extension.dart",
-      "description": "This Dart file provides an extension on the BuildContext class to make it easier to access the current AppLocalizations instance, which is responsible for managing the application's localization and internationalization.",
-      "class_diagram": "",
-      "methods": [
-        {
-          "name": "localizations",
-          "description": "Retrieves the current AppLocalizations instance for the given BuildContext.",
-          "parameters": null,
-          "return_type": "AppLocalizations"
-        }
-      ],
-      "dependencies": [
-        "flutter/widgets.dart",
-        "flutter_gen/gen_l10n/app_localizations.dart"
       ]
     },
     {
@@ -52,29 +35,6 @@
         "my_app/app/app.locator.dart",
         "my_app/ui/bottom_sheets/notice/notice_sheet.dart",
         "stacked_services/stacked_services.dart"
-      ]
-    },
-    {
-      "name": "lib/l10n/supported_locales.dart",
-      "description": "This Dart file is responsible for managing the supported locales and localization delegates for the Flutter application. It provides a centralized and reusable way to handle the internationalization (i18n) and localization (l10n) of the app.",
-      "class_diagram": "",
-      "methods": [
-        {
-          "name": "localizationsDelegates",
-          "description": "Returns a list of localization delegates that provide the translation and formatting logic for the application's strings.",
-          "parameters": null,
-          "return_type": "List<LocalizationsDelegate<dynamic>>"
-        },
-        {
-          "name": "supportedLocales",
-          "description": "Returns a list of locales that the application supports for translation and formatting.",
-          "parameters": null,
-          "return_type": "List<Locale>"
-        }
-      ],
-      "dependencies": [
-        "flutter/widgets.dart",
-        "flutter_gen/gen_l10n/app_localizations.dart"
       ]
     },
     {
@@ -136,75 +96,6 @@
       ]
     },
     {
-      "name": "lib/main/bootstrap.dart",
-      "description": "This file is responsible for bootstrapping the Flutter application, setting up the necessary dependencies, and running the main app widget. It serves as the entry point for the application, ensuring a consistent initialization process across different app flavors.",
-      "class_diagram": "",
-      "methods": [
-        {
-          "name": "bootstrap",
-          "description": "This is the main entry point function that initializes the application. It sets up the app's flavor, ensures the WidgetsFlutterBinding is initialized, and configures the app's orientation, locator, dialog UI, and bottom sheet UI. Finally, it runs the main app widget provided by the caller.",
-          "parameters": [
-            "builder",
-            "flavor"
-          ],
-          "return_type": "Future<void>"
-        }
-      ],
-      "dependencies": [
-        "dart:async",
-        "package:flutter/material.dart",
-        "package:flutter/services.dart",
-        "package:my_app/app/app.bottomsheets.dart",
-        "package:my_app/app/app.dialogs.dart",
-        "package:my_app/app/app.locator.dart",
-        "package:my_app/models/enums/flavor.dart",
-        "package:my_app/utils/flavors/flavors.dart"
-      ]
-    },
-    {
-      "name": "lib/main/main_production.dart",
-      "description": "This file is responsible for bootstrapping the production version of the application. It sets up the initial state and configuration for the app, ensuring it runs in the production environment.",
-      "class_diagram": "",
-      "methods": [
-        {
-          "name": "main",
-          "description": "The entry point of the application. It calls the `bootstrap` function to initialize the app and render the `AppView`.",
-          "parameters": null,
-          "return_type": "void"
-        }
-      ],
-      "dependencies": [
-        "package:my_app/main/bootstrap.dart",
-        "package:my_app/models/enums/flavor.dart",
-        "package:my_app/ui/views/app/app_view.dart"
-      ]
-    },
-    {
-      "name": "lib/main/main_development.dart",
-      "description": "This Dart file is responsible for bootstrapping the development version of the Flutter application. It sets up the application's entry point and configures the application flavor to be 'development'.",
-      "class_diagram": "",
-      "methods": [
-        {
-          "name": "main",
-          "description": "The main entry point of the application that initializes the development build of the app.",
-          "parameters": null,
-          "return_type": "void"
-        }
-      ],
-      "dependencies": [
-        "package:my_app/main/bootstrap.dart",
-        "package:my_app/models/enums/flavor.dart",
-        "package:my_app/ui/views/app/app_view.dart"
-      ]
-    },
-    {
-      "name": "lib/models/enums/flavor.dart",
-      "description": "This file defines an enum called `Flavor` with two values: `production` and `development`. It represents the different flavors or environments that the application can run in.",
-      "class_diagram": "@startuml\nenum Flavor {\n  production\n  development\n}\n@enduml",
-      "methods": [],
-      "dependencies": []
-    },
-    {
       "name": "lib/services/analytic_service.dart",
       "description": "The AnalyticService class is a wrapper for analytics functionality in the application. It encapsulates the implementation of analytics tracking and provides a centralized interface for managing analytics-related operations.",
       "class_diagram": "@startuml\nclass AnalyticService {\n  + init(): Future<void>\n}\n@enduml",
@@ -218,52 +109,6 @@
       ],
       "dependencies": [
         "package:stacked/stacked_annotations.dart"
-      ]
-    },
-    {
-      "name": "lib/observer/screen_observer.dart",
-      "description": "The ScreenObserver class is responsible for tracking the screen views of the application using the AnalyticService. It is a NavigatorObserver that listens for navigation events and logs screen transitions to the analytics service.",
-      "class_diagram": "@startuml\nclass ScreenObserver extends NavigatorObserver {\n  + ScreenObserver()\n  + void didPush(Route<dynamic> route, Route<dynamic>? previousRoute)\n  + void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute})\n  + void didPop(Route<dynamic> route, Route<dynamic>? previousRoute)\n  - void _trackScreenView(Route<dynamic> route)\n}\n\nAnalyticService --* ScreenObserver\n@enduml",
-      "methods": [
-        {
-          "name": "didPush",
-          "description": "Tracks the screen view when a new route is pushed onto the navigation stack.",
-          "parameters": [
-            "Route<dynamic> route",
-            "Route<dynamic>? previousRoute"
-          ],
-          "return_type": "void"
-        },
-        {
-          "name": "didReplace",
-          "description": "Tracks the screen view when a route is replaced in the navigation stack.",
-          "parameters": [
-            "Route<dynamic>? newRoute",
-            "Route<dynamic>? oldRoute"
-          ],
-          "return_type": "void"
-        },
-        {
-          "name": "didPop",
-          "description": "Tracks the screen view when a route is popped from the navigation stack.",
-          "parameters": [
-            "Route<dynamic> route",
-            "Route<dynamic>? previousRoute"
-          ],
-          "return_type": "void"
-        },
-        {
-          "name": "_trackScreenView",
-          "description": "Logs the screen view to the AnalyticService based on the current route.",
-          "parameters": [
-            "Route<dynamic> route"
-          ],
-          "return_type": "void"
-        }
-      ],
-      "dependencies": [
-        "flutter/material.dart",
-        "my_app/services/analytic_service.dart"
       ]
     },
     {
@@ -387,15 +232,6 @@
           "return_type": null
         }
       ],
-      "dependencies": [
-        "package:stacked/stacked.dart"
-      ]
-    },
-    {
-      "name": "lib/ui/views/app/app_viewmodel.dart",
-      "description": "The AppViewModel class is responsible for managing the state and behavior of the main application view in a Flutter application. It serves as the ViewModel component in the Model-View-ViewModel (MVVM) architecture, which separates the presentation logic from the business logic.",
-      "class_diagram": "@startuml\nclass AppViewModel extends BaseViewModel {\n}\n@enduml",
-      "methods": [],
       "dependencies": [
         "package:stacked/stacked.dart"
       ]
@@ -531,189 +367,11 @@
       ]
     },
     {
-      "name": "lib/config/production/firebase_options_production.dart",
-      "description": "This file defines the Firebase configuration options for the production environment of the application. It is responsible for providing the necessary Firebase-related settings and credentials to integrate the application with the Firebase services in the production environment.",
-      "class_diagram": "",
-      "methods": [],
-      "dependencies": [
-        "package:firebase_core/firebase_core.dart",
-        "lib/config/firebase_options.dart"
-      ]
-    },
-    {
       "name": "lib/utils/const/const.dart",
       "description": "This file contains a set of constant values and data structures that are used throughout the application. It serves as a centralized repository for global configuration and settings, providing a consistent and easily accessible way to manage application-wide constants.",
       "class_diagram": "@startuml\n' Enumerations and Constants\npublicConstant totalOnboarding : int\npublicConstant onBoardingHeaderTag : String\npublicConstant pathCompliantStatement : String\npublicConstant pathTermsOfServices : String\npublicConstant defaultContactEmail : String\npublicConstant defaultContactPhone : String\npublicConstant introYoutubeId : String\npublicConstant defaultLanguagesList : List<Map<String, String>>\n@enduml",
       "methods": [],
       "dependencies": []
-    },
-    {
-      "name": "lib/utils/contact/contact_util.dart",
-      "description": "The `ContactUtil` class provides utility functions for launching WhatsApp and email communication from a Flutter application. It handles the platform-specific logic to open the appropriate communication channels for the user's device.",
-      "class_diagram": "@startuml\nclass ContactUtil {\n  +static Future<void> launchWhatsApp(String phone, {String text = ''})\n  +static Future<void> launchEmail(String email)\n}\n@enduml",
-      "methods": [
-        {
-          "name": "launchWhatsApp",
-          "description": "Launches the WhatsApp application or the WhatsApp web interface with a pre-filled message and recipient phone number.",
-          "parameters": [
-            "phone",
-            "text"
-          ],
-          "return_type": "Future<void>"
-        },
-        {
-          "name": "launchEmail",
-          "description": "Launches the default email application with the specified email address.",
-          "parameters": [
-            "email"
-          ],
-          "return_type": "Future<void>"
-        }
-      ],
-      "dependencies": [
-        "dart:async",
-        "dart:io",
-        "package:url_launcher/url_launcher.dart"
-      ]
-    },
-    {
-      "name": "lib/utils/date/date_util.dart",
-      "description": "The `DateUtil` class provides a set of utility functions for handling date and time data in the application, particularly when interacting with Firestore.",
-      "class_diagram": "@startuml\nclass DateUtil {\n  + static DateTime? fromJson(dynamic value)\n}\n@enduml",
-      "methods": [
-        {
-          "name": "fromJson",
-          "description": "Extracts a `DateTime` object from a dynamic input value, which can be a `Timestamp` from Firestore, a `String` representation of a date and time, or a `DateTime` object directly.",
-          "parameters": [
-            "dynamic value"
-          ],
-          "return_type": "DateTime?"
-        }
-      ],
-      "dependencies": [
-        "cloud_firestore/cloud_firestore.dart"
-      ]
-    },
-    {
-      "name": "lib/utils/exceptions/api_exception.dart",
-      "description": "This file defines a custom exception class `APIException` that is used to handle and propagate exceptions that occur during API service interactions. It provides a standardized way to handle and communicate errors that arise in the application's API layer.",
-      "class_diagram": "@startuml\n  class APIException implements Exception {\n    -dynamic message\n    +toString(): String\n  }\n  @enduml",
-      "methods": [
-        {
-          "name": "APIException",
-          "description": "Constructor for the `APIException` class. Allows for the creation of a new `APIException` instance with an optional error message.",
-          "parameters": [
-            "message"
-          ],
-          "return_type": null
-        },
-        {
-          "name": "toString",
-          "description": "Overrides the default `toString()` method to provide a string representation of the `APIException` instance, including the runtime type and the error message.",
-          "parameters": null,
-          "return_type": "String"
-        }
-      ],
-      "dependencies": [
-        "dart:core"
-      ]
-    },
-    {
-      "name": "lib/utils/extensions/color_extension.dart",
-      "description": "This Dart file provides a custom extension on the Flutter `Color` class, adding utility methods for converting hexadecimal color strings to `Color` objects and integer values. This extension simplifies the process of working with color-related functionality in the application, improving developer productivity and maintainability.",
-      "class_diagram": "@startuml\nclass Color {\n  +static Color fromHex(String hexColorString)\n  +static int intFromHex(String hexColorString)\n}\n@enduml",
-      "methods": [
-        {
-          "name": "fromHex",
-          "description": "Converts a hexadecimal color string (e.g., '#FF0000' for red) to a `Color` object.",
-          "parameters": [
-            "hexColorString"
-          ],
-          "return_type": "Color"
-        },
-        {
-          "name": "intFromHex",
-          "description": "Converts a hexadecimal color string (e.g., '#FF0000' for red) to an integer value representing the color.",
-          "parameters": [
-            "hexColorString"
-          ],
-          "return_type": "int"
-        }
-      ],
-      "dependencies": [
-        "package:flutter/material.dart"
-      ]
-    },
-    {
-      "name": "lib/utils/flavors/flavors.dart",
-      "description": "This file defines a singleton class 'Flavors' that is responsible for managing the current application flavor, which is typically used to differentiate between development, staging, and production environments. The main purpose of this class is to provide a centralized way to access and check the current application flavor, enabling the application to behave differently based on the specific environment it is running in.",
-      "class_diagram": "@startuml\nclass Flavors {\n  - static Flavor? flavor\n  + static bool get isDev()\n  + static bool get isProd()\n}\n@enduml",
-      "methods": [
-        {
-          "name": "Flavors",
-          "description": "Private constructor for the Flavors class, ensuring a singleton instance.",
-          "parameters": null,
-          "return_type": null
-        },
-        {
-          "name": "Flavors.factory",
-          "description": "Factory constructor for the Flavors class, returning the singleton instance.",
-          "parameters": null,
-          "return_type": "Flavors"
-        },
-        {
-          "name": "isDev",
-          "description": "Getter that returns true if the current application flavor is Flavor.development.",
-          "parameters": null,
-          "return_type": "bool"
-        },
-        {
-          "name": "isProd",
-          "description": "Getter that returns true if the current application flavor is Flavor.production.",
-          "parameters": null,
-          "return_type": "bool"
-        }
-      ],
-      "dependencies": [
-        "my_app/models/enums/flavor.dart"
-      ]
-    },
-    {
-      "name": "lib/utils/json/json_util.dart",
-      "description": "The JsonUtil class is responsible for providing utility functions to handle JSON data in the application. It solves the problem of safely and consistently parsing and formatting JSON data, which is a common task in modern web and mobile applications.",
-      "class_diagram": "@startuml\nclass JsonUtil {\n  +static Map<String, dynamic> formatMap(Map<dynamic, dynamic>)\n  +static T? fromJsonOrNull<T>(dynamic, T Function(Map<String, dynamic>))\n  +static List<T> formatListMap<T>(List<dynamic>, T Function(Map<String, dynamic>))\n}\n@enduml",
-      "methods": [
-        {
-          "name": "formatMap",
-          "description": "Converts a Map<dynamic, dynamic> to a Map<String, dynamic> by removing any null keys.",
-          "parameters": [
-            "Map<dynamic, dynamic>"
-          ],
-          "return_type": "Map<String, dynamic>"
-        },
-        {
-          "name": "fromJsonOrNull",
-          "description": "Safely converts a dynamic JSON value to an instance of type T, or returns null if the input is invalid.",
-          "parameters": [
-            "dynamic",
-            "T Function(Map<String, dynamic>)"
-          ],
-          "return_type": "T?"
-        },
-        {
-          "name": "formatListMap",
-          "description": "Converts a List<dynamic> of JSON objects to a List<T> by applying the given fromJson function to each object.",
-          "parameters": [
-            "List<dynamic>",
-            "T Function(Map<String, dynamic>)"
-          ],
-          "return_type": "List<T>"
-        }
-      ],
-      "dependencies": [
-        "dart:core",
-        "dart:collection"
-      ]
     },
     {
       "name": "lib/ui/dialogs/info_alert/info_alert_dialog.dart",
@@ -749,16 +407,6 @@
       ]
     },
     {
-      "name": "lib/config/development/firebase_options_development.dart",
-      "description": "This Dart file is responsible for providing the configuration options for the Firebase service in the development environment of the application. It defines the necessary credentials and settings to initialize and interact with the Firebase platform during the development phase.",
-      "class_diagram": "",
-      "methods": [],
-      "dependencies": [
-        "firebase_core",
-        "flutter_dotenv"
-      ]
-    },
-    {
       "name": "lib/app/app.locator.dart",
       "description": "This file is responsible for setting up and managing the service locator in a Flutter application built using the Stacked architecture pattern. The service locator is a crucial component that allows different parts of the application to access and interact with various services and dependencies, promoting a modular and decoupled design.",
       "class_diagram": "",
@@ -781,24 +429,6 @@
       ]
     },
     {
-      "name": "lib/l10n/l10n.dart",
-      "description": "Centralized localization and internationalization (i18n) configuration export file that provides standardized access to app localization resources and supported language configurations",
-      "class_diagram": "@startuml\npackage Localization {\n    [app_localizations.dart]\n    [localizations_extension.dart]\n    [supported_locales.dart]\n}\n@enduml",
-      "methods": [
-        {
-          "name": "exportLocalizations",
-          "description": "Exports core localization components for unified language support across the application",
-          "parameters": null,
-          "return_type": null
-        }
-      ],
-      "dependencies": [
-        "package:flutter_gen/gen_l10n/app_localizations.dart",
-        "localizations_extension.dart",
-        "supported_locales.dart"
-      ]
-    },
-    {
       "name": "lib/app/app.dialogs.dart",
       "description": "This file is responsible for setting up and managing the dialog system used throughout the application. It defines the available dialog types, registers the custom dialog builders, and provides a centralized way to interact with the dialog service.",
       "class_diagram": "@startuml\n'Hide the stereotype since it is the default for class\n'hide circle\n'hide methods\n'skinparam classAttributeIconSize 0\n\nclass DialogType {\n  infoAlert\n}\n\nclass DialogBuilder {\n  (BuildContext, DialogRequest, DialogCompleter) => Widget\n}\n\nclass DialogService {\n  + registerCustomDialogBuilders(Map<DialogType, DialogBuilder>)\n}\n\n'Relationships\nDialogType *-- DialogBuilder : builds\nDialogService o-- DialogBuilder : uses\n\n@enduml",
@@ -817,28 +447,648 @@
       ]
     },
     {
-      "name": "lib/ui/views/app/app_view.dart",
-      "description": "The `AppView` class is the main entry point for the Flutter application. It is responsible for setting up the overall application structure, including the navigation, localization, and event handling. This class serves as the foundation for the entire application, providing the core functionality and user experience.",
-      "class_diagram": "@startuml\nclass AppView {\n  +build(context, viewModel): Widget\n}\n\nclass _App {\n  +build(context, viewModel): Widget\n}\n\nAppView *-- _App\n@enduml",
+      "name": "lib/features/app/app_viewmodel.dart",
+      "description": "Base application view model using the Stacked architectural pattern, serving as a foundation for managing application-wide state and providing reactive capabilities",
+      "class_diagram": "@startuml\nclass AppViewModel {\n}\nBaseViewModel <|-- AppViewModel\n@enduml",
       "methods": [
         {
-          "name": "build",
-          "description": "Builds the main application widget tree, including the MaterialApp, navigation, localization, and event handling.",
+          "name": "constructor",
+          "description": "Creates an empty application view model extending BaseViewModel",
+          "parameters": null,
+          "return_type": null
+        }
+      ],
+      "dependencies": [
+        "package:stacked/stacked.dart"
+      ]
+    },
+    {
+      "name": "lib/services/patient_service.dart",
+      "description": "A service layer that manages patient-related operations, providing a clean abstraction between the data repository and application logic for patient data management in a medical application",
+      "class_diagram": "@startuml\nclass PatientService {\n  -PatientRepository _repository\n  -AnalyticService _analyticService\n  +Future<List<Patient>> getPatients()\n  +Future<Patient> getPatient(int id)\n  +Future<Patient> createPatient(Patient patient)\n  +Future<Patient> updatePatient(Patient patient)\n  +Future<void> deletePatient(int id)\n}\n@enduml",
+      "methods": [
+        {
+          "name": "getPatients",
+          "description": "Retrieves a list of all patients from the repository",
+          "parameters": null,
+          "return_type": "Future<List<Patient>>"
+        },
+        {
+          "name": "getPatient",
+          "description": "Retrieves a specific patient by their unique identifier",
           "parameters": [
-            "context",
-            "viewModel"
+            "int id"
+          ],
+          "return_type": "Future<Patient>"
+        },
+        {
+          "name": "createPatient",
+          "description": "Creates a new patient record and logs the creation event",
+          "parameters": [
+            "Patient patient"
+          ],
+          "return_type": "Future<Patient>"
+        },
+        {
+          "name": "updatePatient",
+          "description": "Updates an existing patient record and logs the update event",
+          "parameters": [
+            "Patient patient"
+          ],
+          "return_type": "Future<Patient>"
+        },
+        {
+          "name": "deletePatient",
+          "description": "Deletes a patient record by their unique identifier and logs the deletion event",
+          "parameters": [
+            "int id"
+          ],
+          "return_type": "Future<void>"
+        }
+      ],
+      "dependencies": [
+        "patient_repository.dart",
+        "patient.dart",
+        "analytic_service.dart"
+      ]
+    },
+    {
+      "name": "lib/features/patient/patient_form_view.dart",
+      "description": "A Flutter widget responsible for creating and editing patient records, providing a comprehensive form interface for medical professionals to input and manage patient information with robust validation and state management.",
+      "class_diagram": "@startuml\nclass PatientFormView {\n  -int patientId\n  +builder(context, viewModel)\n  +viewModelBuilder(context)\n  +onViewModelReady(viewModel)\n}\nnote right: Manages patient data entry/editing workflow\n@enduml",
+      "methods": [
+        {
+          "name": "builder",
+          "description": "Constructs the user interface for patient form with input fields, error handling, and save functionality",
+          "parameters": [
+            "BuildContext",
+            "PatientFormViewModel",
+            "Widget"
+          ],
+          "return_type": "Widget"
+        },
+        {
+          "name": "viewModelBuilder",
+          "description": "Creates the view model instance for managing patient form state and logic",
+          "parameters": [
+            "BuildContext"
+          ],
+          "return_type": "PatientFormViewModel"
+        },
+        {
+          "name": "onViewModelReady",
+          "description": "Initializes the view model, preparing it for data entry or editing",
+          "parameters": [
+            "PatientFormViewModel"
+          ],
+          "return_type": null
+        }
+      ],
+      "dependencies": [
+        "flutter/material.dart",
+        "stacked/stacked.dart",
+        "patient_form_viewmodel.dart",
+        "patient_form_fields.dart",
+        "app_colors.dart",
+        "ui_helpers.dart"
+      ]
+    },
+    {
+      "name": "lib/features/patient/patient_detail_view.dart",
+      "description": "A Flutter view for displaying detailed patient information, enabling medical professionals to review comprehensive patient records with a clean, structured interface",
+      "class_diagram": "@startuml\nclass PatientDetailView {\n  -int patientId\n  +Widget builder()\n  +PatientDetailViewModel viewModelBuilder()\n  -Widget _buildInfoSection()\n  -Widget _buildInfoTile()\n}\nclass PatientDetailViewModel\nPatientDetailView --> PatientDetailViewModel : uses\n@enduml",
+      "methods": [
+        {
+          "name": "builder",
+          "description": "Constructs the patient details screen with dynamic content based on patient data and loading states",
+          "parameters": [
+            "BuildContext",
+            "PatientDetailViewModel",
+            "Widget?"
+          ],
+          "return_type": "Widget"
+        },
+        {
+          "name": "viewModelBuilder",
+          "description": "Creates the view model for patient details, initializing data retrieval for a specific patient",
+          "parameters": [
+            "BuildContext"
+          ],
+          "return_type": "PatientDetailViewModel"
+        },
+        {
+          "name": "_buildInfoSection",
+          "description": "Renders section headers for organizing patient information",
+          "parameters": [
+            "String"
+          ],
+          "return_type": "Widget"
+        },
+        {
+          "name": "_buildInfoTile",
+          "description": "Generates individual information rows with labels and values",
+          "parameters": [
+            "String",
+            "String"
           ],
           "return_type": "Widget"
         }
       ],
       "dependencies": [
         "package:flutter/material.dart",
-        "package:my_app/app/app.router.dart",
-        "package:my_app/l10n/supported_locales.dart",
-        "package:my_app/observer/screen_observer.dart",
-        "package:my_app/ui/views/app/app_viewmodel.dart",
+        "package:stacked/stacked.dart",
+        "patient_detail_viewmodel.dart",
+        "app_colors.dart",
+        "ui_helpers.dart"
+      ]
+    },
+    {
+      "name": "lib/features/patient/patient_form_viewmodel.dart",
+      "description": "A view model for managing patient form data entry, editing, and validation in a medical application, responsible for handling patient information lifecycle and form state management",
+      "class_diagram": "@startuml\nclass PatientFormViewModel {\n  -_patientService: PatientService\n  -_navigationService: NavigationService\n  +initialize(): Future<void>\n  +savePatient(): Future<void>\n  +setName(value: String): void\n  +setAge(value: String): void\n  +setGender(value: String): void\n}\n@enduml",
+      "methods": [
+        {
+          "name": "initialize",
+          "description": "Load existing patient data when editing, populating form fields with current patient information",
+          "parameters": null,
+          "return_type": "Future<void>"
+        },
+        {
+          "name": "savePatient",
+          "description": "Validate patient input and create or update patient record in the system",
+          "parameters": null,
+          "return_type": "Future<void>"
+        },
+        {
+          "name": "_validateInputs",
+          "description": "Perform comprehensive validation of patient data before submission",
+          "parameters": null,
+          "return_type": "bool"
+        },
+        {
+          "name": "setName",
+          "description": "Update patient name in the view model state",
+          "parameters": [
+            "value"
+          ],
+          "return_type": "void"
+        },
+        {
+          "name": "setAge",
+          "description": "Update patient age in the view model state",
+          "parameters": [
+            "value"
+          ],
+          "return_type": "void"
+        }
+      ],
+      "dependencies": [
+        "patient_service.dart",
+        "stacked/stacked.dart",
+        "stacked_services/stacked_services.dart",
+        "patient.dart"
+      ]
+    },
+    {
+      "name": "lib/features/patient/patient_list_viewmodel.dart",
+      "description": "A ViewModel for managing patient list interactions, providing search, retrieval, navigation, and deletion capabilities for patient records in a medical application",
+      "class_diagram": "@startuml\nclass PatientListViewModel {\n  - _patientService: PatientService\n  - _navigationService: NavigationService\n  - _patients: List<Patient>\n  - _searchQuery: String\n  + initialize(): Future<void>\n  + onSearchQueryChanged(query: String): void\n  + refreshPatients(): Future<void>\n  + navigateToAddPatient(): void\n  + navigateToPatientDetail(patientId: int): void\n  + deletePatient(patientId: int): Future<void>\n}\n@enduml",
+      "methods": [
+        {
+          "name": "initialize",
+          "description": "Initial loading of patient list, setting up the base state of the view model",
+          "parameters": null,
+          "return_type": "Future<void>"
+        },
+        {
+          "name": "onSearchQueryChanged",
+          "description": "Update search query and trigger UI rebuild with filtered patient results",
+          "parameters": [
+            "query"
+          ],
+          "return_type": "void"
+        },
+        {
+          "name": "navigateToAddPatient",
+          "description": "Navigate to patient creation form",
+          "parameters": null,
+          "return_type": "void"
+        },
+        {
+          "name": "navigateToPatientDetail",
+          "description": "Navigate to specific patient's detailed view",
+          "parameters": [
+            "patientId"
+          ],
+          "return_type": "void"
+        },
+        {
+          "name": "deletePatient",
+          "description": "Remove a patient record from the system",
+          "parameters": [
+            "patientId"
+          ],
+          "return_type": "Future<void>"
+        }
+      ],
+      "dependencies": [
+        "package:doctor_apps/services/patient_service.dart",
+        "package:stacked_services/stacked_services.dart",
+        "package:stacked/stacked.dart",
+        "package:doctor_apps/models/patient.dart"
+      ]
+    },
+    {
+      "name": "lib/features/patient/widgets/patient_form_fields.dart",
+      "description": "A reusable form widget for capturing comprehensive patient information with dynamic input handling and flexible state management",
+      "class_diagram": "@startuml\nclass PatientFormFields {\n  +onNameChanged(String name)\n  +onAgeChanged(String age)\n  +onGenderChanged(String gender)\n  +onPhoneChanged(String phone)\n  +onAddressChanged(String address)\n  +onMedicalHistoryChanged(String history)\n}\n@enduml",
+      "methods": [
+        {
+          "name": "build",
+          "description": "Constructs a form with text input fields for capturing patient details",
+          "parameters": [
+            "BuildContext context"
+          ],
+          "return_type": "Widget"
+        }
+      ],
+      "dependencies": [
+        "flutter/material.dart",
+        "doctor_apps/models/patient.dart",
+        "doctor_apps/ui/common/ui_helpers.dart",
+        "doctor_apps/utils/const/const.dart"
+      ]
+    },
+    {
+      "name": "lib/features/startup/startup_viewmodel.dart",
+      "description": "A startup management view model responsible for handling initial application navigation and startup logic, ensuring smooth transition into the main app experience",
+      "class_diagram": "@startuml\nclass StartupViewModel {\n  - _navigationService: NavigationService\n  + runStartupLogic(): Future\n}\n@enduml",
+      "methods": [
+        {
+          "name": "runStartupLogic",
+          "description": "Executes initial startup tasks and determines the first screen/navigation route for the application",
+          "parameters": null,
+          "return_type": "Future"
+        }
+      ],
+      "dependencies": [
+        "stacked",
+        "stacked_services",
+        "app.locator.dart",
+        "app.router.dart"
+      ]
+    },
+    {
+      "name": "lib/features/patient/widgets/patient_card.dart",
+      "description": "A reusable Flutter widget for displaying patient information in a card format, providing a comprehensive and interactive view of patient details with deletion capability",
+      "class_diagram": "@startuml\nclass PatientCard {\n  - Patient patient\n  - VoidCallback onTap\n  - VoidCallback onDelete\n  + build(BuildContext context)\n  - _buildInfoRow(IconData icon, String text)\n  - _showDeleteConfirmation(BuildContext context)\n}\n@enduml",
+      "methods": [
+        {
+          "name": "build",
+          "description": "Creates the visual representation of a patient card with interactive capabilities",
+          "parameters": [
+            "BuildContext context"
+          ],
+          "return_type": "Widget"
+        },
+        {
+          "name": "_buildInfoRow",
+          "description": "Generates a consistent row layout for displaying patient details with an icon and text",
+          "parameters": [
+            "IconData icon",
+            "String text"
+          ],
+          "return_type": "Widget"
+        },
+        {
+          "name": "_showDeleteConfirmation",
+          "description": "Displays a confirmation dialog before permanently deleting a patient record",
+          "parameters": [
+            "BuildContext context"
+          ],
+          "return_type": "Future<void>"
+        }
+      ],
+      "dependencies": [
+        "flutter/material.dart",
+        "doctor_apps/models/patient.dart",
+        "doctor_apps/ui/common/app_colors.dart",
+        "gap/gap.dart"
+      ]
+    },
+    {
+      "name": "lib/features/startup/startup_view.dart",
+      "description": "Provides the initial loading screen/view for the DoctorApps application, responsible for handling the startup sequence and transitioning into the main application flow",
+      "class_diagram": "@startuml\nclass StartupView {\n  +builder(BuildContext, StartupViewModel)\n  +viewModelBuilder(BuildContext)\n  +onViewModelReady(StartupViewModel)\n}\n@enduml",
+      "methods": [
+        {
+          "name": "builder",
+          "description": "Renders the startup loading screen with app name and loading indicator",
+          "parameters": [
+            "BuildContext",
+            "StartupViewModel",
+            "Widget"
+          ],
+          "return_type": "Widget"
+        },
+        {
+          "name": "viewModelBuilder",
+          "description": "Creates the StartupViewModel instance for managing startup logic",
+          "parameters": [
+            "BuildContext"
+          ],
+          "return_type": "StartupViewModel"
+        },
+        {
+          "name": "onViewModelReady",
+          "description": "Triggers initial startup logic after view is first rendered",
+          "parameters": [
+            "StartupViewModel"
+          ],
+          "return_type": null
+        }
+      ],
+      "dependencies": [
+        "flutter/material.dart",
+        "flutter/scheduler.dart",
+        "stacked/stacked.dart",
+        "startup_viewmodel.dart"
+      ]
+    },
+    {
+      "name": "lib/features/home/home_viewmodel.dart",
+      "description": "A ViewModel for the home screen that manages UI state and provides interactive features like counter manipulation and dialog/bottom sheet display using the Stacked architectural pattern",
+      "class_diagram": "@startuml\nclass HomeViewModel {\n  - _dialogService: DialogService\n  - _bottomSheetService: BottomSheetService\n  - _counter: int\n  + incrementCounter()\n  + showDialog()\n  + showBottomSheet()\n}\n@enduml",
+      "methods": [
+        {
+          "name": "incrementCounter",
+          "description": "Increments the internal counter and triggers UI rebuild",
+          "parameters": null,
+          "return_type": null
+        },
+        {
+          "name": "showDialog",
+          "description": "Displays a custom dialog with dynamic counter value",
+          "parameters": null,
+          "return_type": null
+        },
+        {
+          "name": "showBottomSheet",
+          "description": "Displays a custom bottom sheet with predefined content",
+          "parameters": null,
+          "return_type": null
+        }
+      ],
+      "dependencies": [
+        "package:stacked/stacked.dart",
+        "package:stacked_services/stacked_services.dart",
+        "app/app.bottomsheets.dart",
+        "app/app.dialogs.dart",
+        "app/app.locator.dart"
+      ]
+    },
+    {
+      "name": "lib/features/home/home_view.dart",
+      "description": "A home screen view that demonstrates basic UI interaction and state management using the Stacked architecture, featuring a counter, dialog, and bottom sheet functionality",
+      "class_diagram": "@startuml\nclass HomeView {\n  +builder(context: BuildContext, viewModel: HomeViewModel)\n  +viewModelBuilder(context: BuildContext)\n}\nclass HomeViewModel {\n  +incrementCounter()\n  +showDialog()\n  +showBottomSheet()\n}\n@enduml",
+      "methods": [
+        {
+          "name": "builder",
+          "description": "Constructs the primary UI layout for the home screen with interactive elements",
+          "parameters": [
+            "BuildContext",
+            "HomeViewModel",
+            "Widget?"
+          ],
+          "return_type": "Widget"
+        },
+        {
+          "name": "viewModelBuilder",
+          "description": "Creates and returns the associated ViewModel for the home screen",
+          "parameters": [
+            "BuildContext"
+          ],
+          "return_type": "HomeViewModel"
+        },
+        {
+          "name": "incrementCounter",
+          "description": "Increases the counter value and updates the UI state",
+          "parameters": null,
+          "return_type": null
+        },
+        {
+          "name": "showDialog",
+          "description": "Displays a dialog box from the home screen",
+          "parameters": null,
+          "return_type": null
+        },
+        {
+          "name": "showBottomSheet",
+          "description": "Presents a bottom sheet from the home screen",
+          "parameters": null,
+          "return_type": null
+        }
+      ],
+      "dependencies": [
+        "flutter/material.dart",
+        "gap/gap.dart",
+        "stacked/stacked.dart",
+        "home_viewmodel.dart"
+      ]
+    },
+    {
+      "name": "lib/models/patient.dart",
+      "description": "A data model representing a patient's comprehensive medical profile, designed to standardize patient information storage, serialization, and manipulation across a healthcare application",
+      "class_diagram": "@startuml\nclass Patient {\n  +int? id\n  +String name\n  +int age\n  +String gender\n  +String phone\n  +String address\n  +String medicalHistory\n  +fromJson(Map<String, dynamic> json)\n  +toJson()\n  +copyWith()\n}\n@enduml",
+      "methods": [
+        {
+          "name": "fromJson",
+          "description": "Converts a JSON map into a Patient object, enabling data deserialization from external sources",
+          "parameters": [
+            "Map<String, dynamic> json"
+          ],
+          "return_type": "Patient"
+        },
+        {
+          "name": "toJson",
+          "description": "Serializes a Patient object into a JSON-compatible map, facilitating data transmission and storage",
+          "parameters": null,
+          "return_type": "Map<String, dynamic>"
+        },
+        {
+          "name": "copyWith",
+          "description": "Creates a new Patient instance with optional field modifications, supporting immutable state updates",
+          "parameters": [
+            "int? id",
+            "String? name",
+            "int? age",
+            "String? gender",
+            "String? phone",
+            "String? address",
+            "String? medicalHistory"
+          ],
+          "return_type": "Patient"
+        }
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "lib/features/app/app_view.dart",
+      "description": "Configures the root MaterialApp widget with global UI/UX behaviors and routing configuration for the entire doctor appointment application",
+      "class_diagram": "@startuml\nclass AppView {\n  +build(BuildContext context)\n}\nclass _App {\n  +build(BuildContext context, AppViewModel viewModel)\n}\n@enduml",
+      "methods": [
+        {
+          "name": "build",
+          "description": "Constructs the root application widget with global settings like text scaling, keyboard behavior, and navigation configuration",
+          "parameters": [
+            "BuildContext context"
+          ],
+          "return_type": "Widget"
+        }
+      ],
+      "dependencies": [
+        "package:flutter/material.dart",
+        "package:doctor_apps/app/app.router.dart",
+        "package:doctor_apps/features/app/app_viewmodel.dart",
         "package:stacked/stacked.dart",
         "package:stacked_services/stacked_services.dart"
+      ]
+    },
+    {
+      "name": "lib/features/patient/patient_list_view.dart",
+      "description": "A comprehensive patient management screen that enables healthcare professionals to view, search, and interact with patient records in a user-friendly mobile interface",
+      "class_diagram": "@startuml\nclass PatientListView {\n  +builder(context, viewModel, child)\n  +viewModelBuilder(context)\n  +onViewModelReady(viewModel)\n}\n@enduml",
+      "methods": [
+        {
+          "name": "builder",
+          "description": "Constructs the UI for patient list screen with search, loading states, and patient list rendering",
+          "parameters": [
+            "BuildContext",
+            "PatientListViewModel",
+            "Widget"
+          ],
+          "return_type": "Widget"
+        },
+        {
+          "name": "viewModelBuilder",
+          "description": "Creates the view model instance for managing patient list state and interactions",
+          "parameters": [
+            "BuildContext"
+          ],
+          "return_type": "PatientListViewModel"
+        },
+        {
+          "name": "onViewModelReady",
+          "description": "Initializes the patient list view model, typically triggering initial data load",
+          "parameters": [
+            "PatientListViewModel"
+          ],
+          "return_type": null
+        }
+      ],
+      "dependencies": [
+        "flutter/material.dart",
+        "stacked/stacked.dart",
+        "patient_list_viewmodel.dart",
+        "patient_card.dart",
+        "app_colors.dart",
+        "ui_helpers.dart"
+      ]
+    },
+    {
+      "name": "lib/features/patient/patient_repository.dart",
+      "description": "A repository class for managing patient data, providing CRUD operations with in-memory storage, simulating a data persistence layer for a healthcare application",
+      "class_diagram": "@startuml\nclass PatientRepository {\n  - _patients: List<Patient>\n  - _nextId: int\n  + getPatients(): Future<List<Patient>>\n  + getPatient(id: int): Future<Patient>\n  + createPatient(patient: Patient): Future<Patient>\n  + updatePatient(patient: Patient): Future<Patient>\n  + deletePatient(id: int): Future<void>\n}\n@enduml",
+      "methods": [
+        {
+          "name": "getPatients",
+          "description": "Retrieves a list of all patients, simulating a database fetch with a delay",
+          "parameters": null,
+          "return_type": "Future<List<Patient>>"
+        },
+        {
+          "name": "getPatient",
+          "description": "Finds and returns a specific patient by their unique ID",
+          "parameters": [
+            "id"
+          ],
+          "return_type": "Future<Patient>"
+        },
+        {
+          "name": "createPatient",
+          "description": "Adds a new patient to the repository with an auto-generated ID",
+          "parameters": [
+            "patient"
+          ],
+          "return_type": "Future<Patient>"
+        },
+        {
+          "name": "updatePatient",
+          "description": "Updates an existing patient's information in the repository",
+          "parameters": [
+            "patient"
+          ],
+          "return_type": "Future<Patient>"
+        },
+        {
+          "name": "deletePatient",
+          "description": "Removes a patient from the repository by their unique ID",
+          "parameters": [
+            "id"
+          ],
+          "return_type": "Future<void>"
+        }
+      ],
+      "dependencies": [
+        "doctor_apps/models/patient.dart",
+        "doctor_apps/utils/const/const.dart"
+      ]
+    },
+    {
+      "name": "lib/main.dart",
+      "description": "Application entry point responsible for initializing the Flutter app with critical setup, error handling, and app configuration",
+      "class_diagram": "@startuml\nnode main {\n  [App Initialization]\n  [Error Handling]\n  [Orientation Configuration]\n}\n@enduml",
+      "methods": [
+        {
+          "name": "main",
+          "description": "Primary application startup method that configures app initialization, sets device orientation, and handles global error scenarios",
+          "parameters": null,
+          "return_type": null
+        }
+      ],
+      "dependencies": [
+        "dart:async",
+        "flutter/material.dart",
+        "flutter/services.dart",
+        "doctor_apps/app/app.bottomsheets.dart",
+        "doctor_apps/app/app.dialogs.dart",
+        "doctor_apps/app/app.locator.dart",
+        "features/app/app_view.dart"
+      ]
+    },
+    {
+      "name": "lib/features/patient/patient_detail_viewmodel.dart",
+      "description": "A ViewModel responsible for managing patient detail view state and interactions, enabling loading, displaying, and navigating to patient edit functionality in a medical application",
+      "class_diagram": "@startuml\nclass PatientDetailViewModel {\n  -_patientService: PatientService\n  -_navigationService: NavigationService\n  +patientId: int\n  +patient: Patient?\n  +initialize(): void\n  +navigateToEdit(): void\n}\n@enduml",
+      "methods": [
+        {
+          "name": "initialize",
+          "description": "Loads patient details from service, handling loading state and error scenarios",
+          "parameters": null,
+          "return_type": "Future<void>"
+        },
+        {
+          "name": "navigateToEdit",
+          "description": "Navigates to patient edit form with current patient's ID",
+          "parameters": null,
+          "return_type": "void"
+        }
+      ],
+      "dependencies": [
+        "package:doctor_apps/services/patient_service.dart",
+        "package:stacked/stacked.dart",
+        "package:stacked_services/stacked_services.dart",
+        "package:doctor_apps/models/patient.dart"
       ]
     }
   ],
@@ -864,7 +1114,7 @@
       "purpose": "Creating gaps in layouts"
     }
   ],
-  "sequence_diagram": "@startuml\nactor User\nparticipant main\nparticipant AppView\nparticipant StartupView\nparticipant StartupViewModel\nparticipant HomeView\nparticipant HomeViewModel\n\nUser -> main: Launch app\nmain -> AppView: Create and run\nAppView -> StartupView: Initialize\nStartupView -> StartupViewModel: Run startup logic\nStartupViewModel -> HomeView: Navigate on completion\nHomeView -> HomeViewModel: Initialize\nUser -> HomeView: Interact\nHomeView -> HomeViewModel: Handle user actions\nHomeViewModel -> HomeView: Update UI\nHomeViewModel -> DialogService: Show dialog\nHomeViewModel -> BottomSheetService: Show bottom sheet\n@enduml",
-  "state_management_flow": "The application uses the Stacked architecture for state management. Each view has a corresponding ViewModel that handles the business logic and state for that view. The ViewModels are responsible for updating the UI, interacting with services (e.g., DialogService, BottomSheetService), and managing the application's overall state. The app.locator.dart file sets up the necessary dependency injections, allowing the ViewModels to access the required services.",
-  "navigation_flow": "The application's navigation is managed using the Stacked Router, defined in app.router.dart. The main entry point is the AppView, which initializes the Stacked architecture and displays the StartupView. After the startup logic is completed, the StartupViewModel navigates to the HomeView. The HomeView allows the user to interact with the application, triggering updates to the HomeViewModel, which in turn updates the UI and can show dialogs or bottom sheets as needed."
+  "sequence_diagram": "@startuml\nactor User\nparticipant StartupView\nparticipant PatientListView\nparticipant PatientDetailView\nparticipant PatientFormView\n\nUser -> StartupView: App Launch\nStartupView -> PatientListView: Navigate\nUser -> PatientListView: View Patients\nUser -> PatientListView: Select Patient\nPatientListView -> PatientDetailView: Navigate\nUser -> PatientDetailView: View Details\nPatientDetailView -> PatientFormView: Edit Patient\nUser -> PatientFormView: Update Patient Info\nPatientFormView -> PatientListView: Save and Return\n@enduml",
+  "state_management_flow": "State management is handled through Stacked's reactive ViewModels. Each view has a corresponding ViewModel that extends BaseViewModel, providing reactive capabilities. State changes trigger automatic UI updates. Services like PatientService manage data retrieval and manipulation, while ViewModels coordinate between the UI and these services. Dependency injection via app.locator.dart ensures clean service provisioning across the application.",
+  "navigation_flow": "Navigation is managed by the Stacked routing system, defined in app.router.dart. The app transitions through key screens: StartupView \u2192 PatientListView \u2192 PatientDetailView \u2192 PatientFormView. The NavigationService handles all routing, allowing programmatic navigation between views with optional parameters and transition styles. Routes are statically defined and type-safe, ensuring compile-time routing validation."
 }
