@@ -1,0 +1,1 @@
+Now I am still seeing the counter apps, please fixed the main routing in startup view
