@@ -11,6 +11,7 @@ import 'package:stacked_services/src/dialog/dialog_service.dart';
 import 'package:stacked_services/src/navigation/navigation_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
+import '../services/analytic_service.dart';
 import '../services/patient_service.dart';
 
 final locator = StackedLocator.instance;
@@ -30,4 +31,8 @@ Future<void> setupLocator({
   final patientService = PatientService();
   await patientService.init();
   locator.registerSingleton(patientService);
+
+  final analyticService = AnalyticService();
+  await analyticService.init();
+  locator.registerSingleton(analyticService);
 }

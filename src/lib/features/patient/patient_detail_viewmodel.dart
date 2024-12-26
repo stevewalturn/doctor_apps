@@ -20,16 +20,24 @@ class PatientDetailViewModel extends BaseViewModel {
       _patient = await _patientService.getPatient(patientId);
       notifyListeners();
     } catch (e) {
-      setError('Unable to load patient details. Please try again.');
+      setError(
+          'Unable to load patient details. Please check your connection and try again.');
     } finally {
       setBusy(false);
     }
   }
 
-  void navigateToEdit() {
-    _navigationService.navigateTo(
-      '/patient-form',
-      arguments: patientId,
-    );
+  Future<void> navigateToEdit() async {
+    try {
+      final result = await _navigationService.navigateWithTransition(
+        PatientFormView(patientId: patientId),
+        transition: NavigationTransition.rightToLeft,
+      );
+      if (result == true) {
+        await initialize();
+      }
+    } catch (e) {
+      setError('Unable to open edit form. Please try again.');
+    }
   }
 }

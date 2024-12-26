@@ -56,8 +56,13 @@ class PatientListViewModel extends BaseViewModel {
 
   Future<void> navigateToPatientDetail(int patientId) async {
     try {
-      await _navigationService.navigateTo('/patient-detail',
-          arguments: patientId);
+      final result = await _navigationService.navigateWithTransition(
+        PatientDetailView(patientId: patientId),
+        transition: NavigationTransition.rightToLeft,
+      );
+      if (result == true) {
+        await refreshPatients();
+      }
     } catch (e) {
       setError('Unable to open patient details. Please try again.');
     }
