@@ -17,11 +17,11 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: PatientDetailView, path: '/patient-detail'),
   ],
   dependencies: [
-    InitializableSingleton(classType: NavigationService),
-    InitializableSingleton(classType: DialogService),
-    InitializableSingleton(classType: BottomSheetService),
-    InitializableSingleton(classType: PatientService),
-    InitializableSingleton(classType: AnalyticService),
+    LazySingleton(classType: NavigationService),
+    LazySingleton(classType: DialogService),
+    LazySingleton(classType: BottomSheetService),
+    LazySingleton(classType: PatientService),
+    LazySingleton(classType: AnalyticService),
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),

@@ -1,6 +1,8 @@
 import 'package:doctor_apps/app/app.locator.dart';
 import 'package:doctor_apps/models/patient.dart';
 import 'package:doctor_apps/services/patient_service.dart';
+import 'package:doctor_apps/features/patient/patient_form_view.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -29,9 +31,9 @@ class PatientDetailViewModel extends BaseViewModel {
 
   Future<void> navigateToEdit() async {
     try {
-      final result = await _navigationService.navigateWithTransition(
+      final result = await _navigationService.navigateToView(
         PatientFormView(patientId: patientId),
-        transition: NavigationTransition.rightToLeft,
+        transition: Transition.rightToLeft,
       );
       if (result == true) {
         await initialize();
