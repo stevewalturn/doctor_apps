@@ -1,8 +1,6 @@
 import 'package:doctor_apps/app/app.locator.dart';
 import 'package:doctor_apps/models/patient.dart';
 import 'package:doctor_apps/services/patient_service.dart';
-import 'package:doctor_apps/features/patient/patient_detail_view.dart';
-import 'package:doctor_apps/features/patient/patient_form_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -10,11 +8,12 @@ class PatientListViewModel extends BaseViewModel {
   final _patientService = locator<PatientService>();
   final _navigationService = locator<NavigationService>();
 
-  List<Patient> _patients = [];
-  List<Patient> get patients => _patients;
+  List<Patient> _allPatients = [];
+  List<Patient> _filteredPatients = [];
+  List<Patient> get patients => _filteredPatients;
 
-  String? _searchQuery;
-  String? get searchQuery => _searchQuery;
+  String _searchQuery = '';
+  String get searchQuery => _searchQuery;
 
   Future<void> initialize() async {
     await runBusyFuture(_loadPatients());
@@ -22,25 +21,31 @@ class PatientListViewModel extends BaseViewModel {
 
   Future<void> _loadPatients() async {
     try {
-      _patients = await _patientService.getPatients();
-      if (_searchQuery != null && _searchQuery!.isNotEmpty) {
-        _patients = _patients
-            .where((patient) =>
-                patient.name
-                    .toLowerCase()
-                    .contains(_searchQuery!.toLowerCase()) ||
-                patient.phone.contains(_searchQuery!))
-            .toList();
-      }
-      notifyListeners();
+      _allPatients = await _patientService.getPatients();
+      _applySearch();
     } catch (e) {
-      setError('Failed to load patients. Please try again.');
+      setError(
+          'Unable to load patients. Please check your connection and try again.');
     }
   }
 
   void onSearchQueryChanged(String query) {
     _searchQuery = query;
-    rebuildUi();
+    _applySearch();
+  }
+
+  void _applySearch() {
+    if (_searchQuery.isEmpty) {
+      _filteredPatients = List.from(_allPatients);
+    } else {
+      final searchLower = _searchQuery.toLowerCase();
+      _filteredPatients = _allPatients
+          .where((patient) =>
+              patient.name.toLowerCase().contains(searchLower) ||
+              patient.phone.contains(searchLower))
+          .toList();
+    }
+    notifyListeners();
   }
 
   Future<void> refreshPatients() async {
@@ -52,7 +57,7 @@ class PatientListViewModel extends BaseViewModel {
       await _navigationService.navigateToView(const PatientFormView());
       await refreshPatients();
     } catch (e) {
-      setError('Unable to navigate to add patient form. Please try again.');
+      setError('Unable to open add patient form. Please try again.');
     }
   }
 
