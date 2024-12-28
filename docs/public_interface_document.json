@@ -1,7 +1,7 @@
 {
   "package_name": "com.steve_os.doctor_apps",
-  "project_description": "A medical patient management Flutter application that enables healthcare professionals to efficiently manage patient records through a comprehensive mobile interface. The application provides full CRUD functionality for patient data, including patient listing, detailed patient view, patient creation and editing, and interactive patient cards. Key features include search functionality, dynamic form handling, patient information validation, and seamless navigation between different patient management screens.",
-  "architecture_overview": "The application implements a modular Stacked architecture with MVVM design pattern, utilizing dependency injection via GetIt. The architecture features a clear separation of concerns with distinct layers for views, view models, services, and repositories. Each feature is structured with a consistent pattern of View, ViewModel, and optional Service/Repository components, promoting code reusability, testability, and maintainability through reactive state management and type-safe routing.",
+  "project_description": "A comprehensive medical patient management Flutter application that enables healthcare professionals to efficiently manage patient records through a feature-rich mobile interface. The app provides complete CRUD functionality for patient data, supporting patient listing, detailed patient views, patient creation and editing, and interactive patient cards with advanced features like search, validation, and seamless navigation.",
+  "architecture_overview": "Implemented using Stacked architecture with MVVM design pattern, leveraging dependency injection via GetIt. The architecture features a modular structure with clear separation of concerns, including distinct layers for views, view models, services, and repositories. Each feature is structured with consistent View, ViewModel, and optional Service/Repository components, promoting code reusability, testability, and maintainability through reactive state management and type-safe routing.",
   "files": [
     {
       "name": "lib/app/app.dart",
@@ -1090,6 +1090,13 @@
         "package:stacked_services/stacked_services.dart",
         "package:doctor_apps/models/patient.dart"
       ]
+    },
+    {
+      "name": "lib/core/enums/transition_style.dart",
+      "description": "An enumeration defining different animation transition styles for screen or widget navigation within the application, providing predefined visual transition effects",
+      "class_diagram": "@startuml\nenum TransitionStyle {\n  fade\n  scale\n  rightToLeft\n  leftToRight\n  upToDown\n  downToUp\n}\n@enduml",
+      "methods": [],
+      "dependencies": []
     }
   ],
   "dependencies": [
