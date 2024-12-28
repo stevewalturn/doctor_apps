@@ -1,4 +1,5 @@
 import 'package:doctor_apps/app/app.locator.dart';
+import 'package:doctor_apps/app/app.router.dart';
 import 'package:doctor_apps/models/patient.dart';
 import 'package:doctor_apps/services/patient_service.dart';
 import 'package:stacked/stacked.dart';
@@ -54,7 +55,7 @@ class PatientListViewModel extends BaseViewModel {
 
   Future<void> navigateToAddPatient() async {
     try {
-      await _navigationService.navigateToView(const PatientFormView());
+      await _navigationService.navigateTo('/patient-form-view');
       await refreshPatients();
     } catch (e) {
       setError('Unable to open add patient form. Please try again.');
@@ -63,8 +64,9 @@ class PatientListViewModel extends BaseViewModel {
 
   Future<void> navigateToPatientDetail(int patientId) async {
     try {
-      final result = await _navigationService.navigateToView(
-        PatientDetailView(patientId: patientId),
+      final result = await _navigationService.navigateTo(
+        '/patient-detail-view',
+        arguments: {'patientId': patientId},
       );
       if (result == true) {
         await refreshPatients();
