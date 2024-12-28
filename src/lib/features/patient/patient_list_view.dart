@@ -16,7 +16,7 @@ class PatientListView extends StackedView<PatientListViewModel> {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Patient List'),
+        title: const Text('Patients'),
         backgroundColor: kcPrimaryColor,
       ),
       body: Column(
@@ -26,7 +26,7 @@ class PatientListView extends StackedView<PatientListViewModel> {
             child: TextField(
               onChanged: viewModel.onSearchQueryChanged,
               decoration: const InputDecoration(
-                hintText: 'Search patients...',
+                hintText: 'Search patients by name or phone...',
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(),
               ),
@@ -37,7 +37,7 @@ class PatientListView extends StackedView<PatientListViewModel> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 viewModel.modelError.toString(),
-                style: const TextStyle(color: Colors.red),
+                style: const TextStyle(color: kcErrorRed),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -45,8 +45,24 @@ class PatientListView extends StackedView<PatientListViewModel> {
             child: viewModel.isBusy
                 ? const Center(child: CircularProgressIndicator())
                 : viewModel.patients.isEmpty
-                    ? const Center(
-                        child: Text('No patients found'),
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.person_search,
+                              size: 64,
+                              color: kcMediumGrey,
+                            ),
+                            verticalSpaceSmall,
+                            Text(
+                              viewModel.searchQuery.isEmpty
+                                  ? 'No patients found'
+                                  : 'No matching patients found',
+                              style: const TextStyle(color: kcMediumGrey),
+                            ),
+                          ],
+                        ),
                       )
                     : RefreshIndicator(
                         onRefresh: viewModel.refreshPatients,
@@ -68,8 +84,7 @@ class PatientListView extends StackedView<PatientListViewModel> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        key: const Key('addPatientButton'),
-        onPressed: () => viewModel.navigateToAddPatient(),
+        onPressed: viewModel.navigateToAddPatient,
         backgroundColor: kcPrimaryColor,
         child: const Icon(Icons.add),
       ),

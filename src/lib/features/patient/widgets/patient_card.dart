@@ -49,7 +49,7 @@ class PatientCard extends StatelessWidget {
               const Gap(8),
               _buildInfoRow(Icons.phone, patient.phone),
               const Gap(4),
-              _buildInfoRow(Icons.calendar_today, '${patient.age} years old'),
+              _buildInfoRow(Icons.calendar_today, '${patient.age} years'),
               const Gap(4),
               _buildInfoRow(Icons.person, patient.gender),
               if (patient.address.isNotEmpty) ...[
