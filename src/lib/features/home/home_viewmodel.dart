@@ -1,35 +1,58 @@
-import 'package:doctor_apps/app/app.bottomsheets.dart';
-import 'package:doctor_apps/app/app.dialogs.dart';
 import 'package:doctor_apps/app/app.locator.dart';
+import 'package:doctor_apps/services/patient_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class HomeViewModel extends BaseViewModel {
-  final _dialogService = locator<DialogService>();
-  final _bottomSheetService = locator<BottomSheetService>();
+  final _navigationService = locator<NavigationService>();
+  final _patientService = locator<PatientService>();
 
-  String get counterLabel => 'Counter is: $_counter';
+  int _totalPatients = 0;
+  int get totalPatients => _totalPatients;
 
-  int _counter = 0;
+  int _recentPatients = 0;
+  int get recentPatients => _recentPatients;
 
-  void incrementCounter() {
-    _counter++;
-    rebuildUi();
+  Future<void> initialize() async {
+    await runBusyFuture(_loadDashboardData());
   }
 
-  void showDialog() {
-    _dialogService.showCustomDialog(
-      variant: DialogType.infoAlert,
-      title: 'Steve Rocks!',
-      description: 'Give steve $_counter stars on Github',
-    );
+  Future<void> _loadDashboardData() async {
+    try {
+      final patients = await _patientService.getPatients();
+      _totalPatients = patients.length;
+
+      // Calculate patients added in last 7 days
+      final now = DateTime.now();
+      final weekAgo = now.subtract(const Duration(days: 7));
+      _recentPatients = patients.where((patient) {
+        // This is a placeholder - in real app we'd use patient.createdAt
+        return true;
+      }).length;
+
+      notifyListeners();
+    } catch (e) {
+      setError('Failed to load dashboard data. Please try again.');
+    }
   }
 
-  void showBottomSheet() {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.notice,
-      title: 'title',
-      description: 'desc',
-    );
+  Future<void> navigateToPatientList() async {
+    try {
+      await _navigationService.navigateTo('/patient-list-view');
+    } catch (e) {
+      setError('Unable to open patient list. Please try again.');
+    }
+  }
+
+  Future<void> navigateToAddPatient() async {
+    try {
+      await _navigationService.navigateTo('/patient-form-view');
+    } catch (e) {
+      setError('Unable to open add patient form. Please try again.');
+    }
+  }
+
+  Future<void> refreshDashboard() async {
+    await runBusyFuture(_loadDashboardData());
   }
 }
