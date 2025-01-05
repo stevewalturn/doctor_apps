@@ -1,5 +1,6 @@
 import 'package:doctor_apps/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:doctor_apps/ui/dialogs/info_alert/info_alert_dialog.dart';
+import 'package:doctor_apps/features/home/home_view.dart';
 import 'package:doctor_apps/features/patient/patient_form_view.dart';
 import 'package:doctor_apps/features/patient/patient_list_view.dart';
 import 'package:doctor_apps/features/patient/patient_detail_view.dart';
@@ -12,6 +13,7 @@ import 'package:stacked_services/stacked_services.dart';
 @StackedApp(
   routes: [
     MaterialRoute(page: StartupView, initial: true),
+    MaterialRoute(page: HomeView),
     MaterialRoute(page: PatientListView),
     MaterialRoute(page: PatientFormView),
     MaterialRoute(page: PatientDetailView),
@@ -21,7 +23,7 @@ import 'package:stacked_services/stacked_services.dart';
     LazySingleton(classType: DialogService),
     LazySingleton(classType: BottomSheetService),
     InitializableSingleton(classType: PatientService),
-    LazySingleton(classType: AnalyticService),
+    InitializableSingleton(classType: AnalyticService),
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),

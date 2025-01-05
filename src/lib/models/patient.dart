@@ -6,6 +6,8 @@ class Patient {
   final String phone;
   final String address;
   final String medicalHistory;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
   Patient({
     this.id,
@@ -15,6 +17,8 @@ class Patient {
     required this.phone,
     required this.address,
     required this.medicalHistory,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory Patient.fromJson(Map<String, dynamic> json) {
@@ -26,6 +30,12 @@ class Patient {
       phone: json['phone'] as String,
       address: json['address'] as String,
       medicalHistory: json['medicalHistory'] as String,
+      createdAt: json['createdAt'] != null
+          ? DateTime.parse(json['createdAt'] as String)
+          : null,
+      updatedAt: json['updatedAt'] != null
+          ? DateTime.parse(json['updatedAt'] as String)
+          : null,
     );
   }
 
@@ -38,6 +48,8 @@ class Patient {
       'phone': phone,
       'address': address,
       'medicalHistory': medicalHistory,
+      'createdAt': createdAt?.toIso8601String(),
+      'updatedAt': updatedAt?.toIso8601String(),
     };
   }
 
@@ -49,6 +61,8 @@ class Patient {
     String? phone,
     String? address,
     String? medicalHistory,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) {
     return Patient(
       id: id ?? this.id,
@@ -58,6 +72,8 @@ class Patient {
       phone: phone ?? this.phone,
       address: address ?? this.address,
       medicalHistory: medicalHistory ?? this.medicalHistory,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 }

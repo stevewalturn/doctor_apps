@@ -21,18 +21,10 @@ class HomeViewModel extends BaseViewModel {
     try {
       final patients = await _patientService.getPatients();
       _totalPatients = patients.length;
-
-      // Calculate patients added in last 7 days
-      final now = DateTime.now();
-      final weekAgo = now.subtract(const Duration(days: 7));
-      _recentPatients = patients.where((patient) {
-        // This is a placeholder - in real app we'd use patient.createdAt
-        return true;
-      }).length;
-
+      _recentPatients = await _patientService.getRecentPatientsCount();
       notifyListeners();
     } catch (e) {
-      setError('Failed to load dashboard data. Please try again.');
+      setError('Unable to load dashboard data. Please try again.');
     }
   }
 
@@ -46,7 +38,10 @@ class HomeViewModel extends BaseViewModel {
 
   Future<void> navigateToAddPatient() async {
     try {
-      await _navigationService.navigateTo('/patient-form-view');
+      final result = await _navigationService.navigateTo('/patient-form-view');
+      if (result == true) {
+        await refreshDashboard();
+      }
     } catch (e) {
       setError('Unable to open add patient form. Please try again.');
     }
@@ -54,5 +49,15 @@ class HomeViewModel extends BaseViewModel {
 
   Future<void> refreshDashboard() async {
     await runBusyFuture(_loadDashboardData());
+  }
+
+  void showNotifications() {
+    // TODO: Implement notifications feature
+    setError('Notifications feature coming soon!');
+  }
+
+  void showSettings() {
+    // TODO: Implement settings feature
+    setError('Settings feature coming soon!');
   }
 }

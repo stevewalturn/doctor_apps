@@ -1,37 +1,37 @@
 import 'package:doctor_apps/models/patient.dart';
-import 'package:doctor_apps/utils/const/const.dart';
 
 class PatientRepository {
-  // In-memory storage for demonstration
   final List<Patient> _patients = [];
   int _nextId = 1;
 
+  Future<void> init() async {
+    // Initialize repository if needed
+  }
+
   Future<List<Patient>> getPatients() async {
     try {
-      // Simulate network delay
-      await Future.delayed(const Duration(milliseconds: 500));
-      return _patients;
+      await Future.delayed(const Duration(milliseconds: 800));
+      return List.from(_patients);
     } catch (e) {
-      throw Exception(kErrorLoadingPatients);
+      throw Exception('Failed to fetch patients from storage');
     }
   }
 
   Future<Patient> getPatient(int id) async {
     try {
       await Future.delayed(const Duration(milliseconds: 500));
-      final patient = _patients.firstWhere(
+      return _patients.firstWhere(
         (p) => p.id == id,
         orElse: () => throw Exception('Patient not found'),
       );
-      return patient;
     } catch (e) {
-      throw Exception('Unable to find patient with ID: $id');
+      throw Exception('Failed to fetch patient details');
     }
   }
 
   Future<Patient> createPatient(Patient patient) async {
     try {
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future.delayed(const Duration(milliseconds: 1000));
       final newPatient = Patient(
         id: _nextId++,
         name: patient.name,
@@ -40,38 +40,44 @@ class PatientRepository {
         phone: patient.phone,
         address: patient.address,
         medicalHistory: patient.medicalHistory,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
       );
       _patients.add(newPatient);
       return newPatient;
     } catch (e) {
-      throw Exception(kErrorSavingPatient);
+      throw Exception('Failed to create patient record');
     }
   }
 
   Future<Patient> updatePatient(Patient patient) async {
     try {
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future.delayed(const Duration(milliseconds: 1000));
       final index = _patients.indexWhere((p) => p.id == patient.id);
       if (index == -1) {
         throw Exception('Patient not found');
       }
-      _patients[index] = patient;
-      return patient;
+
+      final updatedPatient = patient.copyWith(
+        updatedAt: DateTime.now(),
+      );
+      _patients[index] = updatedPatient;
+      return updatedPatient;
     } catch (e) {
-      throw Exception(kErrorSavingPatient);
+      throw Exception('Failed to update patient record');
     }
   }
 
   Future<void> deletePatient(int id) async {
     try {
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future.delayed(const Duration(milliseconds: 800));
       final index = _patients.indexWhere((p) => p.id == id);
       if (index == -1) {
         throw Exception('Patient not found');
       }
       _patients.removeAt(index);
     } catch (e) {
-      throw Exception(kErrorDeletingPatient);
+      throw Exception('Failed to delete patient record');
     }
   }
 }

@@ -3,28 +3,11 @@ import 'package:stacked/stacked_annotations.dart';
 class AnalyticService implements InitializableDependency {
   @override
   Future<void> init() async {
-    // Initialize analytics service
-    // This is a placeholder for actual analytics implementation
+    // Initialize analytics service if needed
   }
 
-  void logEvent(String eventName, {Map<String, dynamic>? parameters}) {
-    // Log analytics event
-    // This is a placeholder for actual analytics implementation
-  }
-
-  void logScreenView(String screenName) {
-    logEvent('screen_view', parameters: {'screen_name': screenName});
-  }
-
-  void logPatientCreated() {
-    logEvent('patient_created');
-  }
-
-  void logPatientUpdated() {
-    logEvent('patient_updated');
-  }
-
-  void logPatientDeleted() {
-    logEvent('patient_deleted');
+  Future<void> logEvent(String eventName, {Map<String, dynamic>? parameters}) async {
+    // Add actual analytics implementation here
+    await Future.delayed(const Duration(milliseconds: 100)); // Simulate async operation
   }
 }

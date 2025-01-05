@@ -19,42 +19,76 @@ class PatientCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 2,
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      margin: const EdgeInsets.only(bottom: 16),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: InkWell(
         onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
+                  CircleAvatar(
+                    radius: 24,
+                    backgroundColor: kcPrimaryColor.withOpacity(0.1),
                     child: Text(
-                      patient.name,
+                      patient.name.substring(0, 1).toUpperCase(),
                       style: const TextStyle(
-                        fontSize: 18,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: kcPrimaryColor,
                       ),
                     ),
                   ),
+                  const Gap(16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          patient.name,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: kcDarkGreyColor,
+                          ),
+                        ),
+                        const Gap(4),
+                        Text(
+                          '${patient.gender}, ${patient.age} years',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: kcMediumGrey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   IconButton(
-                    icon: const Icon(Icons.delete, color: Colors.red),
+                    icon: const Icon(Icons.delete_outline, color: kcErrorRed),
                     onPressed: () => _showDeleteConfirmation(context),
                   ),
                 ],
               ),
-              const Gap(8),
+              const Gap(16),
               _buildInfoRow(Icons.phone, patient.phone),
-              const Gap(4),
-              _buildInfoRow(Icons.calendar_today, '${patient.age} years'),
-              const Gap(4),
-              _buildInfoRow(Icons.person, patient.gender),
               if (patient.address.isNotEmpty) ...[
-                const Gap(4),
+                const Gap(8),
                 _buildInfoRow(Icons.location_on, patient.address),
+              ],
+              if (patient.medicalHistory.isNotEmpty) ...[
+                const Gap(8),
+                _buildInfoRow(
+                    Icons.medical_information,
+                    patient.medicalHistory.length > 50
+                        ? '${patient.medicalHistory.substring(0, 50)}...'
+                        : patient.medicalHistory),
               ],
             ],
           ),
@@ -96,7 +130,7 @@ class PatientCard extends StatelessWidget {
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            style: TextButton.styleFrom(foregroundColor: kcErrorRed),
             child: const Text('Delete'),
           ),
         ],

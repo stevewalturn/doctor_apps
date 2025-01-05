@@ -43,7 +43,8 @@ class PatientListViewModel extends BaseViewModel {
       _filteredPatients = _allPatients
           .where((patient) =>
               patient.name.toLowerCase().contains(searchLower) ||
-              patient.phone.contains(searchLower))
+              patient.phone.contains(searchLower) ||
+              patient.address.toLowerCase().contains(searchLower))
           .toList();
     }
     notifyListeners();
@@ -55,8 +56,10 @@ class PatientListViewModel extends BaseViewModel {
 
   Future<void> navigateToAddPatient() async {
     try {
-      await _navigationService.navigateTo('/patient-form-view');
-      await refreshPatients();
+      final result = await _navigationService.navigateTo('/patient-form-view');
+      if (result == true) {
+        await refreshPatients();
+      }
     } catch (e) {
       setError('Unable to open add patient form. Please try again.');
     }
@@ -83,5 +86,18 @@ class PatientListViewModel extends BaseViewModel {
     } catch (e) {
       setError('Failed to delete patient. Please try again.');
     }
+  }
+
+  void sortPatientsByName({bool ascending = true}) {
+    _filteredPatients.sort((a, b) => ascending
+        ? a.name.toLowerCase().compareTo(b.name.toLowerCase())
+        : b.name.toLowerCase().compareTo(a.name.toLowerCase()));
+    notifyListeners();
+  }
+
+  void sortPatientsByAge({bool ascending = true}) {
+    _filteredPatients.sort(
+        (a, b) => ascending ? a.age.compareTo(b.age) : b.age.compareTo(a.age));
+    notifyListeners();
   }
 }
