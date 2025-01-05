@@ -1,7 +1,7 @@
 {
   "package_name": "com.steve_os.doctor_apps",
   "project_description": "A comprehensive medical patient management Flutter application that enables healthcare professionals to efficiently manage patient records through a feature-rich mobile interface. The app provides complete CRUD functionality for patient data, supporting patient listing, detailed patient views, patient creation and editing, and interactive patient cards with advanced features like search, validation, and seamless navigation.",
-  "architecture_overview": "Implemented using Stacked architecture with MVVM design pattern, leveraging dependency injection via GetIt. The architecture features a modular structure with clear separation of concerns, including distinct layers for views, view models, services, and repositories. Each feature is structured with consistent View, ViewModel, and optional Service/Repository components, promoting code reusability, testability, and maintainability through reactive state management and type-safe routing.",
+  "architecture_overview": "The application is built using Stacked architecture with MVVM design pattern and dependency injection via GetIt. It features a modular structure with clear separation of concerns, including distinct layers for views, view models, services, and repositories. Each feature is consistently structured with View, ViewModel, and optional Service/Repository components, promoting code reusability, testability, and maintainability.",
   "files": [
     {
       "name": "lib/app/app.dart",
@@ -1097,6 +1097,63 @@
       "class_diagram": "@startuml\nenum TransitionStyle {\n  fade\n  scale\n  rightToLeft\n  leftToRight\n  upToDown\n  downToUp\n}\n@enduml",
       "methods": [],
       "dependencies": []
+    },
+    {
+      "name": "lib/features/home/widgets/patient_summary_tile.dart",
+      "description": "A reusable Flutter widget that creates a summary tile for displaying patient-related information with an icon, title, and value, typically used in dashboards or overview screens",
+      "class_diagram": "@startuml\nclass PatientSummaryTile {\n  - title: String\n  - value: String\n  - icon: IconData\n  - color: Color\n  + build(context: BuildContext): Widget\n}\n@enduml",
+      "methods": [
+        {
+          "name": "build",
+          "description": "Constructs the visual representation of the patient summary tile with an icon, title, and value",
+          "parameters": [
+            "context"
+          ],
+          "return_type": "Widget"
+        }
+      ],
+      "dependencies": [
+        "package:flutter/material.dart",
+        "package:doctor_apps/ui/common/app_colors.dart"
+      ]
+    },
+    {
+      "name": "lib/features/home/widgets/home_stats_card.dart",
+      "description": "A reusable widget for displaying statistical information on the home screen, presenting a card with a title, value, and optional icon with customizable styling and tap interaction",
+      "class_diagram": "@startuml\nclass HomeStatsCard {\n  - title: String\n  - value: String\n  - icon: IconData\n  + onTap(): void\n  + build(): Widget\n}\n@enduml",
+      "methods": [
+        {
+          "name": "build",
+          "description": "Constructs the visual representation of the stats card with title, value, and icon",
+          "parameters": [
+            "BuildContext context"
+          ],
+          "return_type": "Widget"
+        }
+      ],
+      "dependencies": [
+        "flutter/material.dart",
+        "doctor_apps/ui/common/app_colors.dart"
+      ]
+    },
+    {
+      "name": "lib/features/home/widgets/home_action_button.dart",
+      "description": "A reusable custom Flutter widget that creates a card-based action button with an icon and text, designed for home screen navigation or actions with flexible styling options",
+      "class_diagram": "@startuml\nclass HomeActionButton {\n  - title: String\n  - icon: IconData\n  - onTap: VoidCallback\n  + build(context: BuildContext): Widget\n}\n@enduml",
+      "methods": [
+        {
+          "name": "build",
+          "description": "Constructs the visual representation of the action button with configurable icon, text, and styling",
+          "parameters": [
+            "context"
+          ],
+          "return_type": "Widget"
+        }
+      ],
+      "dependencies": [
+        "flutter/material.dart",
+        "doctor_apps/ui/common/app_colors.dart"
+      ]
     }
   ],
   "dependencies": [
