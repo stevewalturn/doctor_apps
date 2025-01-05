@@ -11,8 +11,7 @@ class StartupViewModel extends BaseViewModel {
       await Future.delayed(const Duration(seconds: 2));
       await _navigationService.clearStackAndShow('/patient-list');
     } catch (e) {
-      setError(
-          'Unable to start application. Please check your internet connection and try again.');
+      setError('Unable to start application. Please try again.');
     }
   }
 }

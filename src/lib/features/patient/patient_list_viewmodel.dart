@@ -25,8 +25,7 @@ class PatientListViewModel extends BaseViewModel {
       _allPatients = await _patientService.getPatients();
       _applySearch();
     } catch (e) {
-      setError(
-          'Unable to load patients. Please check your connection and try again.');
+      setError('Unable to load patients. Please try again.');
     }
   }
 

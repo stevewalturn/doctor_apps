@@ -11,7 +11,7 @@ class StartupViewModel extends BaseViewModel {
       await Future.delayed(const Duration(seconds: 2));
       await _navigationService.clearStackAndShow('/home-view');
     } catch (e) {
-      setError('Failed to initialize application. Please restart the app.');
+      setError('Unable to start application. Please try again.');
     }
   }
 }
