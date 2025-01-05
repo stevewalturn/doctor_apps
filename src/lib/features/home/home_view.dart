@@ -5,6 +5,7 @@ import 'package:doctor_apps/features/home/widgets/home_action_button.dart';
 import 'package:doctor_apps/features/home/widgets/home_stats_card.dart';
 import 'package:doctor_apps/ui/common/app_colors.dart';
 import 'package:doctor_apps/ui/common/ui_helpers.dart';
+import 'package:gap/gap.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
   const HomeView({Key? key}) : super(key: key);
@@ -33,9 +34,12 @@ class HomeView extends StackedView<HomeViewModel> {
                   IconButton(
                     icon: const Icon(Icons.notifications_outlined,
                         color: Colors.white),
-                    onPressed: () {
-                      // TODO: Implement notifications
-                    },
+                    onPressed: viewModel.showNotifications,
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.settings_outlined,
+                        color: Colors.white),
+                    onPressed: viewModel.showSettings,
                   ),
                 ],
               ),
@@ -46,23 +50,36 @@ class HomeView extends StackedView<HomeViewModel> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (viewModel.modelError != null)
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 16.0),
-                          child: Text(
-                            viewModel.modelError.toString(),
-                            style: const TextStyle(color: kcErrorRed),
-                            textAlign: TextAlign.center,
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          margin: const EdgeInsets.only(bottom: 16),
+                          decoration: BoxDecoration(
+                            color: kcErrorRed.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.error_outline,
+                                  color: kcErrorRed),
+                              const Gap(8),
+                              Expanded(
+                                child: Text(
+                                  viewModel.modelError.toString(),
+                                  style: const TextStyle(color: kcErrorRed),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       const Text(
-                        'Statistics',
+                        'Overview',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
                           color: kcDarkGreyColor,
                         ),
                       ),
-                      verticalSpaceSmall,
+                      verticalSpaceMedium,
                       if (viewModel.isBusy)
                         const Center(child: CircularProgressIndicator())
                       else
@@ -81,16 +98,17 @@ class HomeView extends StackedView<HomeViewModel> {
                               onTap: viewModel.navigateToPatientList,
                             ),
                             HomeStatsCard(
-                              title: 'New Patients',
+                              title: 'New This Week',
                               value: viewModel.recentPatients.toString(),
                               icon: Icons.person_add,
                               backgroundColor:
                                   kcPrimaryColorLight.withOpacity(0.1),
                               iconColor: kcPrimaryColorLight,
+                              onTap: viewModel.navigateToPatientList,
                             ),
                           ],
                         ),
-                      verticalSpaceMedium,
+                      verticalSpaceLarge,
                       const Text(
                         'Quick Actions',
                         style: TextStyle(
@@ -99,30 +117,24 @@ class HomeView extends StackedView<HomeViewModel> {
                           color: kcDarkGreyColor,
                         ),
                       ),
-                      verticalSpaceSmall,
-                      GridView.count(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 16,
+                      verticalSpaceMedium,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          HomeActionButton(
-                            title: 'Add Patient',
-                            icon: Icons.person_add,
-                            onTap: viewModel.navigateToAddPatient,
+                          Expanded(
+                            child: HomeActionButton(
+                              title: 'Add Patient',
+                              icon: Icons.person_add,
+                              onTap: viewModel.navigateToAddPatient,
+                            ),
                           ),
-                          HomeActionButton(
-                            title: 'View Patients',
-                            icon: Icons.people,
-                            onTap: viewModel.navigateToPatientList,
-                          ),
-                          HomeActionButton(
-                            title: 'Settings',
-                            icon: Icons.settings,
-                            onTap: () {
-                              // TODO: Implement settings
-                            },
+                          horizontalSpaceMedium,
+                          Expanded(
+                            child: HomeActionButton(
+                              title: 'View All',
+                              icon: Icons.people,
+                              onTap: viewModel.navigateToPatientList,
+                            ),
                           ),
                         ],
                       ),
