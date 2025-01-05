@@ -22,8 +22,7 @@ class PatientDetailViewModel extends BaseViewModel {
       _patient = await _patientService.getPatient(patientId);
       notifyListeners();
     } catch (e) {
-      setError(
-          'Unable to load patient details. Please check your connection and try again.');
+      setError('Unable to load patient details. Please try again.');
     } finally {
       setBusy(false);
     }

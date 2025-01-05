@@ -43,7 +43,8 @@ class PatientFormView extends StackedView<PatientFormViewModel> {
                       onGenderChanged: (value) => viewModel.setGender(value),
                       onPhoneChanged: (value) => viewModel.setPhone(value),
                       onAddressChanged: (value) => viewModel.setAddress(value),
-                      onMedicalHistoryChanged: (value) => viewModel.setMedicalHistory(value),
+                      onMedicalHistoryChanged: (value) =>
+                          viewModel.setMedicalHistory(value),
                       initialValues: viewModel.patient,
                       isLoading: viewModel.isBusy,
                     ),

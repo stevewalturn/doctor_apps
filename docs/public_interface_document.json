@@ -1,7 +1,7 @@
 {
   "package_name": "com.steve_os.doctor_apps",
   "project_description": "A comprehensive medical patient management Flutter application that enables healthcare professionals to efficiently manage patient records through a feature-rich mobile interface. The app provides complete CRUD functionality for patient data, supporting patient listing, detailed patient views, patient creation and editing, and interactive patient cards with advanced features like search, validation, and seamless navigation.",
-  "architecture_overview": "The application is built using the Stacked architecture with MVVM design pattern and dependency injection via GetIt. It features a modular, layered structure with clear separation of concerns, including distinct components for views, view models, services, and repositories. The architecture promotes code reusability, testability, and maintainability through a consistent implementation of feature-level components.",
+  "architecture_overview": "Built using the Stacked architecture with MVVM design pattern and dependency injection via GetIt. The application features a modular, layered structure with clear separation of concerns, including distinct components for views, view models, services, and repositories. The architecture promotes code reusability, testability, and maintainability through a consistent implementation of feature-level components.",
   "files": [
     {
       "name": "lib/app/app.dart",
