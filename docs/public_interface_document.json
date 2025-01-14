@@ -1154,6 +1154,22 @@
         "flutter/material.dart",
         "doctor_apps/ui/common/app_colors.dart"
       ]
+    },
+    {
+      "name": "lib/firebase_options.dart",
+      "description": "Firebase configuration options for the application. Contains API keys and project settings for Firebase services.",
+      "class_diagram": "@startuml\n                                class DefaultFirebaseOptions {\n                                    + static FirebaseOptions get currentPlatform\n                                    - static FirebaseOptions web\n                                }\n                                @enduml",
+      "methods": [
+        {
+          "name": "currentPlatform",
+          "description": "Returns the Firebase configuration options for the current platform",
+          "parameters": null,
+          "return_type": "FirebaseOptions"
+        }
+      ],
+      "dependencies": [
+        "package:firebase_core/firebase_core.dart"
+      ]
     }
   ],
   "dependencies": [
